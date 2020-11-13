@@ -39,6 +39,9 @@
 #include "clock_config.h"
 #include "MK66F18.h"
 #include "fsl_debug_console.h"
+#include "task.h"
+#include "semphr.h"
+#include "FreeRTOS.h"
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -46,6 +49,9 @@
 /*
  * @brief   Application entry point.
  */
+void config_codec(void *parameters);
+void run_codec(void *parameters);
+
 int main(void) {
 
   	/* Init board hardware. */
@@ -57,14 +63,24 @@ int main(void) {
 
     PRINTF("Hello World\n");
 
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
+
+
+    xTaskCreate(config_codec, "config_codec", 120, NULL, 2, NULL);
+    xTaskCreate(run_codec, "run_codec", 120, NULL, 2, NULL);
+
+    vTaskStartScheduler();
+    for(;;)
+    {
+
     }
     return 0 ;
 }
+void config_codec(void *parameters)
+{
+
+}
+void run_codec(void *parameters)
+{
+
+}
+
