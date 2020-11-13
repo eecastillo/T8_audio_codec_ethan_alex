@@ -41,10 +41,7 @@ freertos_i2c_flag_t freertos_i2c_init(freertos_i2c_config_t config)
 	freertos_i2c_flag_t retval = freertos_i2c_fail;
 	i2c_master_config_t fsl_i2c_config;
 
-	const port_pin_config_t config_i2c =
-	{ kPORT_PullUp, kPORT_SlowSlewRate, kPORT_PassiveFilterDisable,
-			kPORT_OpenDrainDisable, kPORT_LowDriveStrength, kPORT_MuxAlt5,
-			kPORT_UnlockRegister};
+
 
 	if(config.i2c_number < NUMBER_OF_SERIAL_PORTS)
 	{
@@ -61,11 +58,41 @@ freertos_i2c_flag_t freertos_i2c_init(freertos_i2c_config_t config)
 			//PORT_SetPinMux(PORTE, config.sda_pin, config.pin_mux);
 
 			/* Port Config */
-			PORT_SetPinConfig(freertos_i2c_get_port_base(config.port), config.sda_pin, &config_i2c);
-			PORT_SetPinConfig(freertos_i2c_get_port_base(config.port), config.scl_pin, &config_i2c);
+			const port_pin_config_t portb2_pinG12_config = {/* Internal pull-up resistor is enabled */
+		    		kPORT_PullDisable,
+		                                                    /* Fast slew rate is configured */
+		                                                    kPORT_FastSlewRate,
+		                                                    /* Passive filter is disabled */
+		                                                    kPORT_PassiveFilterDisable,
+		                                                    /* Open drain is enabled */
+		                                                    kPORT_OpenDrainEnable,
+		                                                    /* Low drive strength is configured */
+		                                                    kPORT_LowDriveStrength,
+		                                                    /* Pin is configured as I2C0_SCL */
+		                                                    kPORT_MuxAlt2,
+		                                                    /* Pin Control Register fields [15:0] are not locked */
+		                                                    kPORT_UnlockRegister};
+		    /* PORTB2 (pin G12) is configured as I2C0_SCL */
+		    PORT_SetPinConfig(PORTB, 2U, &portb2_pinG12_config);
 
+		    const port_pin_config_t portb3_pinG11_config = {/* Internal pull-up resistor is enabled */
+		    		kPORT_PullDisable,
+		                                                    /* Fast slew rate is configured */
+		                                                    kPORT_FastSlewRate,
+		                                                    /* Passive filter is disabled */
+		                                                    kPORT_PassiveFilterDisable,
+		                                                    /* Open drain is enabled */
+		                                                    kPORT_OpenDrainEnable,
+		                                                    /* Low drive strength is configured */
+		                                                    kPORT_LowDriveStrength,
+		                                                    /* Pin is configured as I2C0_SDA */
+		                                                    kPORT_MuxAlt2,
+		                                                    /* Pin Control Register fields [15:0] are not locked */
+		                                                    kPORT_UnlockRegister};
+		    /* PORTB3 (pin G11) is configured as I2C0_SDA */
+		    PORT_SetPinConfig(PORTB, 3U, &portb3_pinG11_config);
 			I2C_MasterGetDefaultConfig(&fsl_i2c_config);
-			//fsl_i2c_config.baudRate_Bps = config.baudrate;
+			fsl_i2c_config.baudRate_Bps = config.baudrate;
 
 			switch(config.i2c_number)
 			{

@@ -16,7 +16,7 @@
  */
 SemaphoreHandle_t i2c_sem_bin;
 
-void init_codec(void *parameters)
+void init_wm8731(void *parameters)
 {
 	uint8_t sucess = freertos_i2c_fail;
 	sucess = config_codec();
@@ -24,21 +24,9 @@ void init_codec(void *parameters)
 	{
 		PRINTF("Configuracion finalizada\n\r");
 	}
-	xSemaphoreGive(i2c_sem_bin);
 	vTaskSuspend(NULL);
 }
 
-void codec_audio(void *parameters)
-{
-
-	xSemaphoreTake(i2c_sem_bin, portMAX_DELAY);
-
-	for(;;)
-	{
-		/*TODO AUDIO FUNCTIONS*/
-		vTaskDelay(pdMS_TO_TICKS(300));
-	}
-}
 
 int main(void)
 {
@@ -51,10 +39,8 @@ int main(void)
     BOARD_InitDebugConsole();
 #endif
 
-    i2c_sem_bin = xSemaphoreCreateBinary();
 
-    xTaskCreate(init_codec, "init_codec", 110, NULL, 1, NULL);
-    xTaskCreate(codec_audio, "codec_audio", 110, NULL, 1, NULL);
+    xTaskCreate(init_wm8731, "init_codec", 110, NULL, 1, NULL);
 
     vTaskStartScheduler();
 
