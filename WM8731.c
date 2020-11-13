@@ -13,10 +13,10 @@ freertos_i2c_flag_t config_codec(void)
 	freertos_i2c_flag_t codec_sucess = freertos_i2c_fail;
 	codec_i2c_config.baudrate = BAUD_RATE;
 	codec_i2c_config.i2c_number = 	freertos_i2c_0;
-	codec_i2c_config.port = freertos_i2c_portB;
+	codec_i2c_config.port = freertos_i2c_portE;
 	codec_i2c_config.scl_pin = I2C_SCL;
 	codec_i2c_config.sda_pin = I2C_SDA;
-	codec_i2c_config.pin_mux = kPORT_MuxAlt2;
+	codec_i2c_config.pin_mux = kPORT_MuxAlt5;
 
 	codec_sucess = freertos_i2c_init(codec_i2c_config);
 	vTaskDelay(pdMS_TO_TICKS(10));

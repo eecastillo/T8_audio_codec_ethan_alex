@@ -69,6 +69,7 @@ int main(void) {
     sem_bin_i2c = xSemaphoreCreateBinary();
 
     xTaskCreate(task_config_codec, "config_codec", 120, NULL, 2, NULL);
+	xTaskCreate(task_run_codec, "run_codec", 120, NULL, 2, NULL);
 
     vTaskStartScheduler();
     for(;;)
@@ -80,23 +81,20 @@ int main(void) {
 void task_config_codec(void *parameters)
 {
 	uint8_t sucess = freertos_i2c_fail;
-	xSemaphoreTake(sem_bin_i2c, portMAX_DELAY);
 	sucess = config_codec();
 	if(freertos_i2c_sucess == sucess)
 	{
 		PRINTF("Configuracion finalizada\n\r");
 	}
 	xSemaphoreGive(sem_bin_i2c);
-	xTaskCreate(task_run_codec, "run_codec", 120, NULL, 2, NULL);
 	vTaskSuspend(NULL);
 }
 void task_run_codec(void *parameters)
 {
-	xSemaphoreTake(i2c_sem, portMAX_DELAY);
+	xSemaphoreTake(sem_bin_i2c, portMAX_DELAY);
 	for(;;)
 	{
 		vTaskDelay(pdMS_TO_TICKS(300));
 	}
-	xSemaphoreGive(sem_bin_i2c);
 }
 
