@@ -30,10 +30,10 @@
 #define RESET_REG				0x0F
 #define ENABLE_CODEC			0x12
 
-#define I2C_SCL		24
-#define I2C_SDA		25
+#define I2C_SCL		2
+#define I2C_SDA		3
 #define BAUD_RATE	100000
-#define I2C_DELAY	10
+#define I2C_DELAY	100
 
 freertos_i2c_flag_t config_codec(void);
 
