@@ -49,8 +49,10 @@
 /*
  * @brief   Application entry point.
  */
-void config_codec(void *parameters);
-void run_codec(void *parameters);
+void task_config_codec(void *parameters);
+void task_run_codec(void *parameters);
+
+SemaphoreHandle_t sem_bin_i2c;
 
 int main(void) {
 
@@ -65,8 +67,8 @@ int main(void) {
 
 
 
-    xTaskCreate(config_codec, "config_codec", 120, NULL, 2, NULL);
-    xTaskCreate(run_codec, "run_codec", 120, NULL, 2, NULL);
+    xTaskCreate(task_config_codec, "config_codec", 120, NULL, 2, NULL);
+    xTaskCreate(task_run_codec, "run_codec", 120, NULL, 2, NULL);
 
     vTaskStartScheduler();
     for(;;)
@@ -75,11 +77,11 @@ int main(void) {
     }
     return 0 ;
 }
-void config_codec(void *parameters)
+void task_config_codec(void *parameters)
 {
 
 }
-void run_codec(void *parameters)
+void task_run_codec(void *parameters)
 {
 
 }
