@@ -9,12 +9,10 @@
 /* TODO: insert other include files here. */
 #include "freertos_i2c.h"
 #include "task.h"
-#include "semphr.h"
 /* TODO: insert other definitions and declarations here. */
 /*
  * @brief   Application entry point.
  */
-SemaphoreHandle_t i2c_sem_bin;
 
 void init_wm8731(void *parameters)
 {
@@ -44,7 +42,7 @@ int main(void)
 
     vTaskStartScheduler();
 
-    while(1)
+    for(;;)
     {
 
     }
