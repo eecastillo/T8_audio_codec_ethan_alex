@@ -30,5 +30,7 @@
 #define RESET_REG				0x0F
 #define ENABLE_CODEC			0x12
 
+freertos_i2c_flag_t config_codec(void);
+uint8_t run_codec(void);
 
 #endif /* WM8731_H_ */
