@@ -27,28 +27,28 @@ freertos_i2c_flag_t config_codec(void)
 
 		uint8_t data[2] = {POWER_DOWN_CTRL_REG, 0x00};
 
-		codec_sucess = freertos_i2c_transmit(codec_i2c_config.i2c_number, data , 2, WM8731_ADDRESS);
+		codec_sucess = freertos_i2c_send(WM8731_ADDRESS, data ,2);
 		vTaskDelay(pdMS_TO_TICKS(I2C_DELAY));
 
 		data[0] = LEFT_LINE_IN_REG;
 		data[1] = 23;
-		codec_sucess = freertos_i2c_transmit(codec_i2c_config.i2c_number, data , 2, WM8731_ADDRESS);
+		codec_sucess = freertos_i2c_send(WM8731_ADDRESS, data ,2);
 		vTaskDelay(pdMS_TO_TICKS(I2C_DELAY));
 
 		data[0] = RIGHT_LINE_IN_REG;
 		data[1] = 23;
-		codec_sucess = freertos_i2c_transmit(codec_i2c_config.i2c_number, data , 2, WM8731_ADDRESS);
+		codec_sucess = freertos_i2c_send(WM8731_ADDRESS, data ,2);
 		vTaskDelay(pdMS_TO_TICKS(I2C_DELAY));
 
 
 		data[0] = ANALOGUE_AUDIO_PATH_REG;
 		data[1] = 0x05;
-		codec_sucess = freertos_i2c_transmit(codec_i2c_config.i2c_number, data , 2, WM8731_ADDRESS);
+		codec_sucess = freertos_i2c_send(WM8731_ADDRESS, data ,2);
 		vTaskDelay(pdMS_TO_TICKS(I2C_DELAY));
 
 		data[0] = ENABLE_CODEC;
 		data[1] = 0x01;
-		codec_sucess = freertos_i2c_transmit(codec_i2c_config.i2c_number, data , 2, WM8731_ADDRESS);
+		codec_sucess = freertos_i2c_send(WM8731_ADDRESS, data ,2);
 		vTaskDelay(pdMS_TO_TICKS(I2C_DELAY));
 	}
 	return codec_sucess;

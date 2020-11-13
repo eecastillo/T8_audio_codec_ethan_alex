@@ -8,7 +8,7 @@
 #ifndef WM8731_H_
 #define WM8731_H_
 
-#include "freertos_i2c.h"
+#include "freertos_I2C.h"
 #include "fsl_clock.h"
 #include "fsl_port.h"
 #include "stdint.h"
