@@ -5,8 +5,8 @@
  *      Author: eduar
  */
 
-#ifndef WM8731_H_
-#define WM8731_H_
+#ifndef WM87313_H_
+#define WM87313_H_
 
 #include "freertos_I2C.h"
 #include "fsl_clock.h"
@@ -32,9 +32,9 @@
 
 #define I2C_SCL		24
 #define I2C_SDA		25
-#define BAUD_RATE	115200
+#define BAUD_RATE	100000
 #define I2C_DELAY	10
 
 freertos_i2c_flag_t config_codec(void);
 
-#endif /* WM8731_H_ */
+#endif /* WM87313_H_ */

@@ -5,7 +5,7 @@
  *      Author: eduar
  */
 
-#include "WM8731.h"
+#include <WM87313.h>
 static freertos_i2c_config_t codec_i2c_config;
 
 freertos_i2c_flag_t config_codec(void)
